@@ -1,0 +1,187 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📱 Termux OpenSSH Server auf Android (Redmi 10)</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        h2 {
+            color: #34495e;
+            border-left: 5px solid #3498db;
+            padding-left: 20px;
+            font-size: 1.8em;
+        }
+        h3 {
+            color: #2980b9;
+            font-size: 1.4em;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+        pre {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 10px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background: #3498db;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        .emoji {
+            font-size: 1.5em;
+        }
+        .github-link {
+            text-align: center;
+            margin: 30px 0;
+            font-size: 1.2em;
+        }
+        .github-link a {
+            background: #2c3e50;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            display: inline-block;
+            transition: background 0.3s;
+        }
+        .github-link a:hover {
+            background: #34495e;
+        }
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+            h1 { font-size: 2em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><span class="emoji">📱</span> Termux OpenSSH Server auf Android <br><small>(getestet auf Redmi 10)</small></h1>
+
+        <p class="highlight">
+            <strong>🚀 Vollständige Anleitung:</strong> Installiere Termux, OpenSSH &amp; ein Script zum einfachen Starten/Stoppen/Restarten. 
+            SSH-Zugriff aus deinem WLAN auf dein Android-Smartphone.
+        </p>
+
+        <div class="github-link">
+            <a href="https://github.com/jbkunama1/hAi.Termux-openssh-RedMi10" target="_blank">
+                ⭐ GitHub Repo besuchen
+            </a>
+        </div>
+
+        <h2><span class="emoji">🎯</span> Ziel</h2>
+        <ul>
+            <li>✅ <strong>Termux</strong> installieren</li>
+            <li>✅ <strong>OpenSSH-Server</strong> einrichten</li>
+            <li>✅ <strong>Script</strong> für Start/Stop/Restart</li>
+            <li>✅ <strong>Android-Einstellungen</strong> (Akku, Netzwerk)</li>
+        </ul>
+
+        <h2><span class="emoji">1️⃣</span> Termux installieren</h2>
+        <ol>
+            <li>Öffne <strong>F-Droid</strong>: <a href="https://f-droid.org" target="_blank">f-droid.org</a> (nicht Play Store!)</li>
+            <li>Installiere <strong>Termux</strong></li>
+            <li>In Termux:</li>
+        </ol>
+        <pre>pkg update && pkg upgrade -y</pre>
+
+        <h2><span class="emoji">2️⃣</span> OpenSSH-Server installieren</h2>
+        <pre>pkg install openssh -y
+passwd
+whoami  # Benutzername merken</pre>
+        <p><strong>Port:</strong> <code>8022</code> | <strong>Wake-Lock:</strong> <code>termux-wake-lock</code></p>
+
+        <h2><span class="emoji">3️⃣</span> Verwaltungs-Script (sshd-manage.sh)</h2>
+        <p>Erstelle das Script:</p>
+        <pre>curl -O https://raw.githubusercontent.com/jbkunama1/hAi.Termux-openssh-RedMi10/main/sshd-manage.sh
+chmod +x sshd-manage.sh
+mv sshd-manage.sh $PREFIX/bin/sshd-manage</pre>
+
+        <p><strong>Nutzung:</strong></p>
+        <pre>sshd-manage start
+sshd-manage status
+sshd-manage restart</pre>
+
+        <h2><span class="emoji">4️⃣</span> Android-Einstellungen (Redmi 10)</h2>
+        <table>
+            <tr><th>Einstellung</th><th>Aktion</th></tr>
+            <tr><td>Akku-Optimierung</td><td>Termux → Keine Einschränkungen</td></tr>
+            <tr><td>Netzwerk</td><td>Termux → WLAN/Mobilfunk erlauben</td></tr>
+            <tr><td>Autostart</td><td>Security App → Termux aktivieren</td></tr>
+        </table>
+
+        <h2><span class="emoji">5️⃣</span> IP finden &amp; SSH verbinden</h2>
+        <pre># IP in Termux
+ifconfig wlan0 | grep inet
+
+# Vom PC
+ssh BENUTZER@192.168.1.45 -p 8022</pre>
+
+        <h2><span class="emoji">🛠️</span> Troubleshooting</h2>
+        <table>
+            <tr><th>Fehler</th><th>Lösung</th></tr>
+            <tr><td>Connection timed out</td><td>IP/WLAN prüfen, Wake-Lock</td></tr>
+            <tr><td>Permission denied</td><td>Passwort/User/Port 8022</td></tr>
+            <tr><td>SSHD stoppt</td><td>Akku-Optimierung deaktivieren</td></tr>
+        </table>
+
+        <div class="highlight">
+            <h3>✅ Fertig! SSH-Zugriff auf dein Android ist bereit 🚀</h3>
+        </div>
+
+        <p style="text-align: center; margin-top: 40px; font-size: 0.9em; color: #7f8c8d;">
+            Erstellt für <a href="https://github.com/jbkunama1/hAi.Termux-openssh-RedMi10">hAi.Termux-openssh-RedMi10</a> | 📅 April 2026
+        </p>
+    </div>
+</body>
+</html>
